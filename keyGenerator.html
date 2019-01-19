@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script type="text/javascript" src="C:\Users\DNS\Desktop\sha256.js"></script>
+
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+
+</head>
+<style>
+    html, body, #divs{
+        float: left;
+         height: 100%;
+        width: 100%;
+        position:relative;
+    }    
+
+</style>
+
+<body onmousemove="a = event.clientX; b = event.clientY">
+<div>
+<button onclick="two()">Начать генерацию</button>
+<input id="inp" style="width:250px;" type="text">
+<input id="out" style="width:500px;" type="text">
+</div>
+</body>
+
+<script>
+    var a,b,c=1,mass=[],z;
+    
+function two() { 
+mass=[];
+$("#out").val("");
+$("body").on("mousemove",(function(){
+    c++;
+    if(c%10==0) {mass.push(a,b)}
+    console.log(a+" "+b+"\n");
+    console.log(mass);
+    if(c%50==0) {$("body").off();one();}
+}));
+} //Создание массива с x и y мышки (10 элементов)
+    
+function one(){z=mass.join(""); console.log(z); $("#inp").val(z);three();} // Вывод строки чисел из массива
+    
+function three(){
+    var hashs = new jsSHA("SHA-256", "TEXT");
+    hashs.update(z);
+    var targetHash = hashs.getHash("HEX");
+    $("#out").val(targetHash);
+};
+
+</script>
+</html>
